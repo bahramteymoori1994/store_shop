@@ -1,6 +1,8 @@
 package storeshop.exception;
 
 import storeshop.model.entities.Customer;
+import storeshop.model.entities.Employee;
+import storeshop.model.entities.Manager;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -16,6 +18,21 @@ public class ExceptionWrapper
                 return "Customer Not Found...!";
             }
         }
+        else if( e instanceof SQLException && o instanceof Manager)
+        {
+            if( ((SQLException) e).getErrorCode() == 17041 )
+            {
+                return "Manager Not Found...!";
+            }
+        }
+        else if( e instanceof SQLException && o instanceof Employee)
+        {
+            if( ((SQLException) e).getErrorCode() == 17289 )
+            {
+                return "Employee Not Found...!";
+            }
+        }
+
         return "Invalid Error";
     }
 
@@ -48,7 +65,54 @@ public class ExceptionWrapper
             }
         }
 
+        else if( o instanceof Manager )
+        {
+            if( ((Manager) o).getManagerName() == null )
+            {
+                return "Manager name is required";
+            }
+            else if( ((Manager) o).getManagerFamily() == null )
+            {
+                return "manager family is required";
+            }
+            else if( ((Manager) o).getManagerNationalCode() == null )
+            {
+                return "Manager national code is required";
+            }
+            else if( ((Manager) o).getManagerCellPhone() == null )
+            {
+                return "manager cell phone is required";
+            }
+            else if( e.getErrorCode() == 1 && e.getSQLState().equals("23000") )
+            {
+                return "Unique key has duplicated";
+            }
+        }
 
-        return "invalid error";
+        else if( o instanceof Employee )
+        {
+            if( ((Employee) o).getManagerId() == 0 )
+            {
+                return "Manager id is required";
+            }
+            else if( ((Employee) o).getEmployeeName() == null )
+            {
+                return "Employee name is required";
+            }
+            else if( ((Employee) o).getEmployeeFamily() == null )
+            {
+                return "Employee family is required";
+            }
+            else if( ((Employee) o).getEmployeeCellPhone() == null )
+            {
+                return "Employee cell phone is required";
+            }
+            else if( e.getErrorCode() == 1 && e.getSQLState().equals("23000") )
+            {
+                return "Unique key has duplicated";
+            }
+        }
+
+        return "Invalid Error...!";
     }
 }

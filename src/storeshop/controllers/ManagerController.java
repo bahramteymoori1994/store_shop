@@ -52,15 +52,18 @@ public class ManagerController implements AbstractBaseController<Manager>
     @Override
     public Manager findById(long id) throws Exception {
 
-        Customer customer = new Customer();
+        Manager manager = new Manager();
 
         try
         {
-            return managerService.findById(id);
+            if( id == managerService.findById(id).getManagerId() )
+            {
+                return managerService.findById(id);
+            }
         }
         catch(Exception e)
         {
-            System.out.println(ExceptionWrapper.getMessage(customer, e));
+            System.out.println(ExceptionWrapper.getMessage(manager, e));
         }
 
         return null;
