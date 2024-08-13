@@ -1,7 +1,6 @@
 package storeshop.controllers;
 
 import storeshop.exception.ExceptionWrapper;
-import storeshop.model.entities.Customer;
 import storeshop.model.entities.Manager;
 import storeshop.services.ManagerService;
 
@@ -71,6 +70,18 @@ public class ManagerController implements AbstractBaseController<Manager>
 
     @Override
     public List<Manager> findAll() throws Exception {
-        return managerService.findAll();
+
+        Manager manager = new Manager();
+
+        try
+        {
+            return managerService.findAll();
+        }
+        catch( Exception e)
+        {
+            System.out.println(ExceptionWrapper.getMessage(manager, e));
+        }
+
+        return null;
     }
 }

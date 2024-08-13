@@ -3,6 +3,7 @@ package storeshop.exception;
 import storeshop.model.entities.Customer;
 import storeshop.model.entities.Employee;
 import storeshop.model.entities.Manager;
+import storeshop.model.entities.Storage;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -11,7 +12,12 @@ public class ExceptionWrapper
 {
     public static String getMessage(Object o, Exception e)
     {
-        if( e instanceof SQLException && o instanceof Customer)
+        if( ((SQLException) e).getErrorCode() == 1017 && ((SQLException) e).getSQLState().equals("72000") )
+        {
+            return "Connection not working";
+        }
+
+        else if( e instanceof SQLException && o instanceof Customer)
         {
             if( ((SQLException) e).getErrorCode() == 17289 )
             {
@@ -32,11 +38,19 @@ public class ExceptionWrapper
                 return "Employee Not Found...!";
             }
         }
+        else if( e instanceof SQLException && o instanceof Storage )
+        {
+            if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
+            {
+                return "Storage Not Found...!";
+            }
+        }
 
         return "Invalid Error";
     }
 
     public static String getMessage(Object o, SQLIntegrityConstraintViolationException e){
+
         if( o instanceof Customer)
         {
             if( ((Customer) o).getCustomerName() == null )
@@ -110,6 +124,18 @@ public class ExceptionWrapper
             else if( e.getErrorCode() == 1 && e.getSQLState().equals("23000") )
             {
                 return "Unique key has duplicated";
+            }
+        }
+
+        else if( o instanceof Storage )
+        {
+            if( ((Storage) o).getEmployee_id() == 0)
+            {
+                return "Employee id must not be 0";
+            }
+            else if( ((Storage) o).getManager_id() == 0 )
+            {
+                return "Manager id must not be 0";
             }
         }
 
