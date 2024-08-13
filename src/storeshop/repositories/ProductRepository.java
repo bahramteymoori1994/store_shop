@@ -154,28 +154,29 @@ public class ProductRepository implements AbstractBaseRepository<Product>, AutoC
         return product;
     }
 
-//    public Product findByName(String productName) throws SQLException
-//    {
-//        String url = "SELECT * FROM product WHERE product_name = ?";
-//        statement = connection.prepareStatement(url);
-//
-//        statement.setString(1, productName.toString());
-//        ResultSet resultSet = statement.executeQuery();
-//
-//        resultSet.next();
-//
-//        Product product = new Product(
-//                resultSet.getLong("product_id"),
-//                resultSet.getLong("customer_id"),
-//                resultSet.getLong("storage_id"),
-//                resultSet.getString("product_number"),
-//                (resultSet.getInt("product_name") == 0) ? ProductName.MOBILE : ProductName.LAPTOP,
-//                resultSet.getString("product_model"),
-//                resultSet.getFloat("product_buy_price"),
-//                resultSet.getInt("product_count"));
-//
-//        return product;
-//    }
+    //TODO : NEEDS TO BE EXAMINED
+    public Product findByName(String productName) throws SQLException
+    {
+        String url = "SELECT * FROM product WHERE product_name = ?";
+        statement = connection.prepareStatement(url);
+
+        statement.setString(1, productName.toString());
+        ResultSet resultSet = statement.executeQuery();
+
+        resultSet.next();
+
+        Product product = new Product(
+                resultSet.getLong("product_id"),
+                resultSet.getLong("customer_id"),
+                resultSet.getLong("storage_id"),
+                resultSet.getString("product_number"),
+                (resultSet.getInt("product_name") == 0) ? ProductName.MOBILE : ProductName.LAPTOP,
+                resultSet.getString("product_model"),
+                resultSet.getFloat("product_buy_price"),
+                resultSet.getInt("product_count"));
+
+        return product;
+    }
 
     public Product findByModel(String model) throws SQLException
     {

@@ -1,7 +1,6 @@
 package storeshop.exception;
 
 import storeshop.model.entities.*;
-
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
@@ -47,6 +46,13 @@ public class ExceptionWrapper
             if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
             {
                 return "Product Not Found...!";
+            }
+        }
+        else if( e instanceof SQLException && o instanceof Cheque )
+        {
+            if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
+            {
+                return "Cheque Not Found...!";
             }
         }
 
@@ -168,6 +174,18 @@ public class ExceptionWrapper
             else if( ((Product) o).getProductBuyPrice() == 0.0 )
             {
                 return "Product buy price is required";
+            }
+        }
+
+        else if( o instanceof Cheque )
+        {
+            if( ((Cheque) o).getCustomerId() == 0 )
+            {
+                return "Customer must not be zero";
+            }
+            else if( ((Cheque) o).getManagerId() == 0 )
+            {
+                return "Manager must not be zero";
             }
         }
 
