@@ -55,6 +55,13 @@ public class ExceptionWrapper
                 return "Cheque Not Found...!";
             }
         }
+        else if( e instanceof SQLException && o instanceof ProductCheque )
+        {
+            if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
+            {
+                return "Product Cheque Not Found...";
+            }
+        }
 
         return "Invalid Error";
     }
@@ -186,6 +193,18 @@ public class ExceptionWrapper
             else if( ((Cheque) o).getManagerId() == 0 )
             {
                 return "Manager must not be zero";
+            }
+        }
+
+        else if( o instanceof ProductCheque )
+        {
+            if( ((ProductCheque) o).getChequeId() == 0 )
+            {
+                return "Cheque must be entered...!";
+            }
+            else if( ((ProductCheque) o).getProductId() == 0 )
+            {
+                return "Product must be entered...!";
             }
         }
 
