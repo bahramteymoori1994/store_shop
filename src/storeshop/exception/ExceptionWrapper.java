@@ -1,9 +1,6 @@
 package storeshop.exception;
 
-import storeshop.model.entities.Customer;
-import storeshop.model.entities.Employee;
-import storeshop.model.entities.Manager;
-import storeshop.model.entities.Storage;
+import storeshop.model.entities.*;
 
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
@@ -43,6 +40,13 @@ public class ExceptionWrapper
             if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
             {
                 return "Storage Not Found...!";
+            }
+        }
+        else if( e instanceof SQLException && o instanceof Product)
+        {
+            if( ((SQLException) e).getErrorCode() == 17289 && ((SQLException) e).getSQLState().equals("99999") )
+            {
+                return "Product Not Found...!";
             }
         }
 
@@ -136,6 +140,34 @@ public class ExceptionWrapper
             else if( ((Storage) o).getManager_id() == 0 )
             {
                 return "Manager id must not be 0";
+            }
+        }
+
+        else if( o instanceof Product )
+        {
+            if( ((Product) o).getCustomerId() == 0 )
+            {
+                return "Product must not be zero";
+            }
+            else if( ((Product) o).getStorageId() == 0 )
+            {
+                return "Storage must not be zero";
+            }
+            else if( ((Product) o).getProductNumber() == null )
+            {
+                return "Product number is required";
+            }
+            else if( ((Product) o).getProductName() == null )
+            {
+                return "Product name is required";
+            }
+            else if( ((Product) o).getProductModel() == null )
+            {
+                return "Product model is required";
+            }
+            else if( ((Product) o).getProductBuyPrice() == 0.0 )
+            {
+                return "Product buy price is required";
             }
         }
 

@@ -5,7 +5,7 @@ import storeshop.model.enums.ProductName;
 
 public class Product {
     private long productId;
-    private long personId;
+    private long customerId;
     private long storageId;
     private String productNumber;
     private ProductName productName;
@@ -16,9 +16,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(long productId, long personId, long storageId, String productNumber, ProductName productName, String productModel, float productBuyPrice, int productCount) {
+    public Product(long productId, long customerId, long storageId, String productNumber, ProductName productName, String productModel, float productBuyPrice, int productCount) {
         this.productId = productId;
-        this.personId = personId;
+        this.customerId = customerId;
         this.storageId = storageId;
         this.productNumber = productNumber;
         this.productName = productName;
@@ -27,8 +27,8 @@ public class Product {
         this.productCount = productCount;
     }
 
-    public Product(long personId, long storageId, String productNumber, ProductName productName, String productModel, float productBuyPrice, int productCount) {
-        this.personId = personId;
+    public Product(long customerId, long storageId, String productNumber, ProductName productName, String productModel, float productBuyPrice, int productCount) {
+        this.customerId = customerId;
         this.storageId = storageId;
         this.productNumber = productNumber;
         this.productName = productName;
@@ -46,12 +46,12 @@ public class Product {
         return this;
     }
 
-    public long getPersonId() {
-        return personId;
+    public long getCustomerId() {
+        return customerId;
     }
 
-    public Product setPersonId(long personId) {
-        this.personId = personId;
+    public Product setCustomerId(long customerId) {
+        this.customerId = customerId;
         return this;
     }
 
